@@ -6,6 +6,7 @@ import LoginPage from './components/LoginPage';
 import RegisterPage from './components/RegisterPage';
 import LessonsList from './components/Lessons/LessonsList';
 import LessonDetail from './components/Lessons/LessonDetail';
+import ProtectedRoute from './components/ProtectedRoute';
 
 function App() {
   return (
@@ -13,8 +14,8 @@ function App() {
       <div className="App">
         <Routes>
           <Route path="/register" element={<RegisterPage />} />
-          <Route path="/lesson/:id" element={<LessonDetail />} />
-          <Route path="/lesson" element={<LessonsList />} />
+          <Route path="/lesson/:id" element={<ProtectedRoute><LessonDetail /></ProtectedRoute>} />
+          <Route path="/lesson" element={<ProtectedRoute><LessonsList /></ProtectedRoute>} />
           <Route path="/" element={<LoginPage />} />
         </Routes>
       </div>
