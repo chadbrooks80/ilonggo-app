@@ -13,9 +13,9 @@ const RegisterPage = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.post('/api/auth/register', { name, email, password });
+      const response = await axios.post('http://localhost:5000/api/auth/register', { name, email, password });
       if (response.data.success) {
-        navigate('/');
+        navigate('/'); // Redirect to home page after successful registration
       } else {
         setError(response.data.message);
       }
