@@ -15,12 +15,13 @@ const RegisterPage = () => {
     try {
       const response = await axios.post('http://localhost:5000/api/auth/register', { name, email, password });
       if (response.data.success) {
-        navigate('/'); // Redirect to home page after successful registration
+        navigate('/');
       } else {
         setError(response.data.message);
       }
     } catch (err) {
-      setError('An error occurred. Please try again.');
+      console.error(err.response ? err.response.data : err.message);
+      setError(err.response && err.response.data && err.response.data.message ? err.response.data.message : 'An error occurred. Please try again.');
     }
   };
 
