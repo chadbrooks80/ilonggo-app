@@ -21,3 +21,10 @@
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
+
+# Backend Folder
+/backend/node_modules
+/backend/.env
+
+
+
