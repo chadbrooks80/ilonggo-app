@@ -7,7 +7,7 @@ const mongoose = require('mongoose');
 let server;
 
 beforeAll((done) => {
-  const PORT = 3000; // Use a different port for testing
+  const PORT = 6000; // Use a different port for testing
   server = app.listen(PORT, () => {
     global.agent = request.agent(server);
     done();
