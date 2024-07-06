@@ -2,11 +2,15 @@
   "name": "ilonggo-app",
   "version": "1.0.0",
   "main": "index.js",
+  "type": "module",
   "license": "MIT",
   "scripts": {
     "start": "concurrently \"npm run server\" \"npm run client\"",
-    "server": "cd backend && npm start",
-    "client": "cd client && npm start"
+    "server": "cd backend && npm run dev",
+    "client": "cd client && npm start",
+    "test": "concurrently \"npm run test:backend\" \"npm run test:client\"",
+    "test:backend": "cd backend && npm test",
+    "test:client": "cd client && npm test"
   },
   "devDependencies": {
     "concurrently": "^6.5.1"
