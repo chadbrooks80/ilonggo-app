@@ -1,5 +1,3 @@
-// /backend/test/basic.test.js
-
 const request = require('supertest');
 const app = require('../server'); // Adjust the path if necessary
 const mongoose = require('mongoose');
@@ -24,5 +22,15 @@ describe('Basic Functionality Test', () => {
     const res = await global.agent.get('/ping');
     expect(res.statusCode).toEqual(200);
     expect(res.text).toEqual('pong');
+  });
+
+  it('should log in a user with valid credentials', async () => {
+    const res = await global.agent
+      .post('/api/auth/login')
+      .send({ email: 'j@j.com', password: 'jjj' });
+  
+    expect(res.statusCode).toEqual(200);
+    expect(res.body).toHaveProperty('success', true);
+    expect(res.body).toHaveProperty('token');
   });
 });
