@@ -5,6 +5,7 @@ const mongoose = require('mongoose'); // Interact with MongoDB
 const cors = require('cors'); // Allow cross-origin requests
 const bodyParser = require('body-parser'); // Parse incoming request bodies in middleware
 const authRoutes = require('./routes/auth'); // Authentication routes from the routes directory
+const lessonsRoutes = require('./routes/lessons'); // Authentication routes from the routes directory
 
 require('dotenv').config(); // Load environment variables from a .env file into process.env
 
@@ -18,6 +19,7 @@ mongoose.connect(process.env.MONGO_URI)
 app.use(cors()); // Use cors middleware to enable cross-origin requests
 app.use(bodyParser.json()); // Use body-parser middleware to parse JSON requests
 app.use('/api/auth', authRoutes); // Use the imported authentication routes for all requests to /api/auth
+app.use('/api/lessons', lessonsRoutes); // Use the imported authentication routes for all requests to /api/auth
 
 // Ping route for health check purposes
 app.get('/ping', (req, res) => {
