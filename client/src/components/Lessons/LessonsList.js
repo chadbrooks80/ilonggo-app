@@ -4,9 +4,20 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
 
+import { useDispatch, useSelector } from 'react-redux';
+import { setTopics, setActiveTopic } from '../../redux/language';
+
+
+
+const apiUrl = process.env.REACT_APP_API_BASE_URL
+
+
 const LessonsList = () => {
-  const [lessons, setLessons] = useState([]);
   const [error, setError] = useState(null);
+  
+  const topics = useSelector(state => state.language.topics) || []
+
+  const dispatch = useDispatch()
 
   useEffect(() => {
     const fetchLessons = async () => {
@@ -16,35 +27,45 @@ const LessonsList = () => {
           throw new Error('No token found');
         }
 
-        const response = await axios.get('http://localhost:5000/api/lessons/topics', {
+        const response = await axios.get(`${apiUrl}/lessons/topics`, {
           headers: {
             'Authorization': `Bearer ${token}`
           }
         });
-        console.log('Fetched lessons:', response.data);
-        setLessons(response.data);
+        
+        dispatch(setTopics(response.data))
+
+
       } catch (err) {
-        console.error("Error fetching lessons:", err.response ? err.response.data : err.message);
         setError(err.message);
       }
     };
 
     fetchLessons();
+    
   }, []);
-
+  
+  
+  
   if (error) {
     return <div>Error: {error}</div>;
   }
-
+  
+  
+  
   return (
     <div className="lessons-list">
       <h2>Lessons</h2>
       <ul>
-        {lessons.map((lesson) => (
-          <li key={lesson._id}>
-            <Link to={`/lesson/${lesson._id}`}>{lesson.topic}</Link>
-          </li>
-        ))}
+        {Array.isArray(topics) && topics.length > 0 ? (
+            topics.map((topic) => (
+              <li key={topic._id} onClick={() => {dispatch(setActiveTopic(topic._id))}}>
+                {topic.topic}
+              </li>
+            ))
+          ) : (
+            <li>No topics available</li>
+          )}
       </ul>
     </div>
   );

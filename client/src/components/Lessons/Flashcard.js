@@ -3,13 +3,15 @@
 import React, { useState, useEffect } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faVolumeUp } from '@fortawesome/free-solid-svg-icons';
+import { Fade } from 'react-bootstrap';
 
 const Flashcard = ({ english, ilonggo, word_id }) => {
   const [flipped, setFlipped] = useState(false);
   const [audioSrc, setAudioSrc] = useState(null);
 
   useEffect(() => {
-    console.log("word_id:"  + word_id);
+    setFlipped(false);  // makes sure each flip shows the english word first. 
+
     const audioPath = `${process.env.PUBLIC_URL}/assets/audio/${word_id}.mp3`;
     fetch(audioPath)
       .then((response) => {
@@ -26,11 +28,19 @@ const Flashcard = ({ english, ilonggo, word_id }) => {
       });
   }, [word_id]);
 
-  const playAudio = (event) => {
+  const playAudio = async (event) => {
     event.stopPropagation(); // Prevents the card from flipping when the audio button is clicked
     if (audioSrc) {
-      const audioElement = new Audio(audioSrc);
-      audioElement.play();
+
+      const response = await fetch(audioSrc, { method: 'GET', headers: { Range: 'bytes=0-1' } });
+      if(response.ok) {
+        const contentType = response.headers.get('Content-Type');
+        if(contentType && contentType.includes('audio/mpeg')) {
+          const audioElement = new Audio(audioSrc);
+          audioElement.play();
+        }
+
+      }
     }
   };
 
