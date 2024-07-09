@@ -1,12 +1,36 @@
 .flashcard-container {
-    background-color: red;
+    background-color: #d3d3d3; /* Gray background for the main container */
     display: flex;
     flex-direction: row;
     height: 100vh;
+    padding: 0; /* Remove padding to align elements to the edges */
+    box-sizing: border-box;
 }
 
 .lessons-list {
-    background-color: blue;
-    
+    background-color: #f0f2f5; /* Light grey background to blend with the container */
+    border: none; /* Remove the border */
+    padding: 20px; /* Internal padding */
+    overflow-y: auto; /* Scrollable if content overflows */
+    margin: 0; /* Ensure no margin around the lessons list */
+    width: 250px; /* Set a fixed width to maintain layout */
 }
 
+.lessons-list ul {
+    list-style: none; /* Remove bullets from the list */
+    padding: 0; /* Remove default padding */
+}
+
+.lessons-list li {
+    cursor: pointer; /* Change cursor to pointer on hover */
+    margin-bottom: 10px; /* Add some space between items */
+    font-size: 18px; /* Increase font size */
+}
+
+.lessons-list li:hover {
+    color: #007bff; /* Change text color on hover */
+}
+
+.lesson-detail {
+    margin-left: 50px; /* Add margin to separate flashcards from the left pane */
+}

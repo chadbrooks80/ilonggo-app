@@ -25,7 +25,6 @@ const LessonDetail = () => {
         if (!token) {
           throw new Error('No token found');
         }
-
         const response = await axios.get(`${apiUrl}/lessons/${activeTopic}`, {
           headers: {
             'Authorization': `Bearer ${token}`

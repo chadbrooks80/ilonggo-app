@@ -38,6 +38,7 @@ const LessonsList = () => {
 
       } catch (err) {
         setError(err.message);
+        console.log("yup, you gone fucked up")
       }
     };
 
