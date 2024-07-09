@@ -1,0 +1,43 @@
+/* Flashcard.css */
+.flashcard-container {
+  perspective: 1000px;
+}
+
+.flashcard {
+  width: 300px;
+  height: 200px;
+  position: relative;
+  transform-style: preserve-3d;
+  transform: rotateY(0deg);
+  transition: transform 0.6s;
+  cursor: pointer;
+  margin: 20px;
+}
+
+.flashcard .front, .flashcard .back {
+  width: 100%;
+  height: 100%;
+  border-radius: 8px;
+  position: absolute;
+  backface-visibility: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 24px;
+  border: 1px solid #ccc;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.flashcard .front {
+  background-color: #fff;
+}
+
+.flashcard .back {
+  background-color: #3498db;
+  color: #fff;
+  transform: rotateY(180deg);
+}
+
+.flashcard.flipped {
+  transform: rotateY(180deg);
+}

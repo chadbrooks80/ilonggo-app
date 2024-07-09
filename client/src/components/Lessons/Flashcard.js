@@ -1,8 +1,7 @@
-// /frontend/src/components/Flashcard.js
-
 import React, { useState, useEffect } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faVolumeUp } from '@fortawesome/free-solid-svg-icons';
+import './Flashcard.css';
 import { Fade } from 'react-bootstrap';
 
 const Flashcard = ({ english, ilonggo, word_id }) => {
@@ -31,15 +30,13 @@ const Flashcard = ({ english, ilonggo, word_id }) => {
   const playAudio = async (event) => {
     event.stopPropagation(); // Prevents the card from flipping when the audio button is clicked
     if (audioSrc) {
-
       const response = await fetch(audioSrc, { method: 'GET', headers: { Range: 'bytes=0-1' } });
-      if(response.ok) {
+      if (response.ok) {
         const contentType = response.headers.get('Content-Type');
-        if(contentType && contentType.includes('audio/mpeg')) {
+        if (contentType && contentType.includes('audio/mpeg')) {
           const audioElement = new Audio(audioSrc);
           audioElement.play();
         }
-
       }
     }
   };

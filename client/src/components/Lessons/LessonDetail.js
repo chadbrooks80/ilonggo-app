@@ -1,29 +1,23 @@
-// /frontend/src/components/Lessons/LessonDetail.js
-
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import Flashcard from './Flashcard';
-
 import { useSelector, useDispatch } from 'react-redux';
 import { setActiveTopicLessons } from '../../redux/language';
+import './LessonDetail.css';
 
-
-
-const apiUrl = process.env.REACT_APP_API_BASE_URL
+const apiUrl = process.env.REACT_APP_API_BASE_URL;
 
 const LessonDetail = () => {
   const [currentWordIndex, setCurrentWordIndex] = useState(0);
   const [error, setError] = useState(null);
 
-  const activeTopic = useSelector(state => state.language.activeTopic)
-  const activeTopicLessons = useSelector(state => state.language.activeTopicLessons)
+  const activeTopic = useSelector(state => state.language.activeTopic);
+  const activeTopicLessons = useSelector(state => state.language.activeTopicLessons);
 
-
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
 
   useEffect(() => {
-    
-    if(!activeTopic) return;
+    if (!activeTopic) return;
 
     const fetchLesson = async () => {
       try {
@@ -38,8 +32,7 @@ const LessonDetail = () => {
           }
         });
         console.log('Fetched lesson:', response.data);
-        dispatch(setActiveTopicLessons(response.data))
-
+        dispatch(setActiveTopicLessons(response.data));
       } catch (err) {
         console.error("Error fetching lesson:", err.response ? err.response.data : err.message);
         setError(err.message);
@@ -47,9 +40,12 @@ const LessonDetail = () => {
     };
 
     fetchLesson();
-  
-
+    setCurrentWordIndex(0)
   }, [activeTopic]);
+
+  useEffect(() => {
+    console.log('activeTopicLessons:', activeTopicLessons);
+  }, [activeTopicLessons]);
 
   if (error) {
     return <div>Error: {error}</div>;
@@ -57,15 +53,10 @@ const LessonDetail = () => {
 
   if (!activeTopic) {
     return <div>Click a Topic To Get Started</div>;
-  } else {
-
   }
 
-
-
   if (!activeTopicLessons) {
-  // if (!lesson) {
-    return <div>loading....</div>
+    return <div>loading....</div>;
   }
 
   const handlePrev = () => {
@@ -79,19 +70,20 @@ const LessonDetail = () => {
       setCurrentWordIndex(currentWordIndex + 1);
     }
   };
-  
-  
+
   return (
-
-
-    <div className="lesson-detail">
+    <>
       <h2>{activeTopicLessons.topic}</h2>
-      <div className="navigation">
-        <button onClick={handlePrev} disabled={currentWordIndex === 0}>&lt;</button>
-        <Flashcard {...activeTopicLessons.words[currentWordIndex]} />
-        <button onClick={handleNext} disabled={currentWordIndex === activeTopicLessons.words.length - 1}>&gt;</button>
+      <div className="lesson-detail">
+        <div className="navigation">
+          <button onClick={handlePrev} disabled={currentWordIndex === 0}>&lt;</button>
+          <button onClick={handleNext} disabled={currentWordIndex === activeTopicLessons.words.length - 1}>&gt;</button>
+          <div className="flashcard-container">
+            <Flashcard {...activeTopicLessons.words[currentWordIndex]} />
+          </div>
+        </div>
       </div>
-    </div>
+    </>
   );
 };
 

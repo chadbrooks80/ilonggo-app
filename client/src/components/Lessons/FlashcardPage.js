@@ -1,20 +1,18 @@
-
 import LessonsList from "./LessonsList";
 import LessonDetail from "./LessonDetail";
-import { useState } from "react";
+import './FlashcardPage.css';
 
 const FlashcardPage = () => {
-
-    
-
     return (
-        <>
-
-            <LessonsList />
-            <LessonDetail />
-
-        </>
-    )
+        <div className="flashcard-container">
+            <div className="lessons-list">
+                <LessonsList />
+            </div>
+            <div className="lesson-detail">
+                <LessonDetail />
+            </div>
+        </div>
+    );
 }
 
 export default FlashcardPage;

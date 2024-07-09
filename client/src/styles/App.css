@@ -1,30 +1,5 @@
-/* src/styles/App.css */
-.flashcard {
-    width: 200px;
-    height: 150px;
-    border: 1px solid #ccc;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    cursor: pointer;
-    margin: 20px auto;
-    flex-direction: column;
-  }
-  
-  .flashcard .front,
-  .flashcard .back {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 100%;
-    height: 100%;
-  }
-  
-  .flashcard.flipped .front {
-    display: none;
-  }
-  
-  .flashcard:not(.flipped) .back {
-    display: none;
-  }
-  
+body {
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+}
